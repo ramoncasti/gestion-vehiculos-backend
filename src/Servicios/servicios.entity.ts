@@ -1,6 +1,9 @@
 
+import { Agendamientos } from "src/agendamientos/agendamientos.entity";
+import { Cars } from "src/cars/cars.entity";
 import { TipoServicio } from "src/enums/TipoServicio";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Usuarios } from "src/usuarios/usuarios.entity";
+import { Column, Entity, ManyToOne, OneToMany , OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Servicios{
@@ -17,7 +20,7 @@ export class Servicios{
     KmFinal: number;
 
     @Column()
-    tipoServicio: TipoServicio;
+    tiposervicio: number;
 
     @Column()
     ValorServicio: number;
@@ -25,4 +28,13 @@ export class Servicios{
     @Column()
     fechaCreacion: Date;
 
+    @ManyToOne(type => Usuarios, usuarios => usuarios.servicios)
+    usuarios:Usuarios;
+
+    @ManyToOne(type => Cars, cars => cars.servicios)
+    cars:Cars;
+
+    @OneToOne(type => Agendamientos, agendamiento => agendamiento.servicios)
+    agendamientos:Agendamientos;
 }
+

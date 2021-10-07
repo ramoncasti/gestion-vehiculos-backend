@@ -1,33 +1,15 @@
 import { Type } from "class-transformer";
 import { IsEnum, IsInt, IsOptional, IsString, Length} from "class-validator";
-import {TipoServicio} from "../enums/TipoServicio";
-
+import { Disponibilidad } from "src/enums/Disponibilidad";
 
 export class CarsDto {
-
-    @IsString()
+    @Type(()=> Date)
     @IsOptional()
-    fabricante: string;
+    fechaCreacion: Date;
 
-    @IsString()
+    @Type(()=> Date)
     @IsOptional()
-    modelo: string;
-
-    @IsString()
-    @IsOptional()
-    situacion:string;
-
-    @IsInt()
-    @IsOptional()
-    AnioFabricacion: number;
-
-    @IsInt()
-    @IsOptional()
-    AnioModelo: number;
-
-    @IsInt()
-    @IsOptional()
-    kilometraje: number;
+    fechaAlteracion: Date;
 
     @IsString()
     @IsOptional()
@@ -37,12 +19,31 @@ export class CarsDto {
     @IsOptional()
     chasis: string;
 
-    @Type(()=> Date)
+    @IsString()
     @IsOptional()
-    fechaCreacion: Date;
+    fabricante: string;
+
+    @IsString()
+    @IsOptional()
+    modelo: string;
+
+    @IsInt()
+    @IsOptional()
+    kilometraje: number;
+
+    @IsInt()
+    @IsOptional()
+    AnioModelo: number;
+
+    @IsInt()
+    @IsOptional()
+    AnioFabricacion: number;
 
     @IsString()
     @IsOptional()
     descripcion: string;
+    
+    @IsEnum(Disponibilidad, {message: 'Error en disponibilidad'})
+    disponibilidad: Disponibilidad;
 
 }

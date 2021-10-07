@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import {TipoServicio} from "../enums/TipoServicio";
+import { Servicios } from "src/Servicios/servicios.entity";
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Disponibilidad } from "src/enums/Disponibilidad";
 
 @Entity()
 export class Cars{
@@ -7,22 +8,10 @@ export class Cars{
     id: number;
 
     @Column()
-    fabricante: string;
-    
-    @Column()
-    modelo: string;
+    fechaCreacion: Date;
 
     @Column()
-    situacion:string;
-
-    @Column()
-    AnioFabricacion: number;
-
-    @Column()
-    AnioModelo: number;
-
-    @Column()
-    kilometraje: number;
+    fechaAlteracion: Date;
 
     @Column()
     chapa: string;
@@ -31,8 +20,26 @@ export class Cars{
     chasis: string;
 
     @Column()
-    fechaCreacion: Date;
+    fabricante: string;
+    
+    @Column()
+    modelo: string;
+
+    @Column()
+    kilometraje: number;
+
+    @Column()
+    AnioModelo: number;
+
+    @Column()
+    AnioFabricacion: number;
 
     @Column()
     descripcion: string;
+
+    @Column()
+    disponibilidad: Disponibilidad;
+
+    @OneToMany(() => Servicios, servicios => servicios.cars,{ cascade: true })
+     servicios: Array<Servicios>;
 }

@@ -1,7 +1,8 @@
 
-import { Situacion } from "src/enums/Situacion";
+import { Disponibilidad } from "src/enums/Disponibilidad";
 import { TipoUsuario } from "src/enums/TipoUsuario";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Servicios } from "src/Servicios/servicios.entity";
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Usuarios{
@@ -9,27 +10,23 @@ export class Usuarios{
     id: number;
 
     @Column()
+    fechaCreacion: Date;
+
+    @Column()
+    fechaAlteracion: Date;
+
+    @Column()
     nombre: string;
-
-    @Column()
-    Apellido: string;
-
-    @Column()
-    Ci: number;
-
-    @Column()
-    Contrasenia: string;
 
     @Column()
     login: string;
 
     @Column()
-    situacion: Situacion;
+    Contrasenia: string;
 
     @Column()
     tipoUsuario: TipoUsuario;
 
-    @Column()
-    fechaCreacion: Date;
-
+    @OneToMany(() => Servicios, servicios => servicios.usuarios,{ cascade: true })
+     servicios: Array<Servicios>;
 }
