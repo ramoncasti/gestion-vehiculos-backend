@@ -8,14 +8,17 @@ import { Servicios } from "src/Servicios/servicios.entity";
 
 
 export class AgendamientosDto {
+    @ApiProperty()
     @Type(() => Date)
     @IsOptional()
     fechaCreacion: Date;
 
+    @ApiProperty()
     @Type(() => Date)
     @IsOptional()
     fechaAlteracion: Date;
 
+    @ApiProperty()
     @IsString()
     @IsOptional()
     descripcion: string;
@@ -36,6 +39,4 @@ export class AgendamientosDto {
     @IsNumber()
     periodo: number;
 
-    @ApiProperty({ type: ServiciosDto })
-    servicio: Servicios;
 }

@@ -1,5 +1,5 @@
 
-import { Disponibilidad } from "src/enums/Disponibilidad";
+import { Agendamientos } from "src/agendamientos/agendamientos.entity";
 import { TipoUsuario } from "src/enums/TipoUsuario";
 import { Servicios } from "src/Servicios/servicios.entity";
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
@@ -26,6 +26,9 @@ export class Usuarios{
 
     @Column()
     tipoUsuario: TipoUsuario;
+
+    @OneToMany(() => Agendamientos, agendamientos => agendamientos.usuarios,{ cascade: true })
+     agendamientos: Array<Agendamientos>;
 
     @OneToMany(() => Servicios, servicios => servicios.usuarios,{ cascade: true })
      servicios: Array<Servicios>;

@@ -1,6 +1,10 @@
+
+import { Cars } from "src/cars/cars.entity";
 import { TipoAgendamiento } from "src/enums/TipoAgendamiento";
-import { Servicios } from "src/Servicios/servicios.entity";
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { TipoServicio } from "src/tiposervicio/tiposervicio.entity";
+import { Usuarios } from "src/usuarios/usuarios.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+
 
 @Entity()
 export class Agendamientos {
@@ -19,16 +23,25 @@ export class Agendamientos {
     @Column()
     tipo: TipoAgendamiento;
 
-    @Column()
-    fecha_Objetivo: Date;
+    @Column({ nullable: true })
+    fecha_objetivo: Date;
 
-    @Column()
+    @Column({nullable:true})
     tipo_periodo: string;
 
-    @OneToOne(type => Servicios,servicios => servicios.agendamientos)
-    @JoinColumn()
-    servicios:Servicios;
-    
+    @Column({ nullable: true })
+    periodo: number;
 
+    @OneToMany(type => TipoServicio, tiposervicio => tiposervicio.agendamientos)
+    @JoinColumn()
+    tiposervicio: TipoServicio;
+
+    @ManyToOne(type => Usuarios, usuarios => usuarios.agendamientos)
+    @JoinColumn()
+    usuarios: Usuarios;
+
+    @ManyToOne(type => Cars, cars => cars.agendamientos)
+    @JoinColumn()
+    cars: Cars;
 
 }

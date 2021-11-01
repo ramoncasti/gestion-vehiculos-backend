@@ -11,7 +11,7 @@ import { AgendamientosModule } from './agendamientos/agendamientos.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.development.env',
+      envFilePath: '.env',
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -19,17 +19,17 @@ import { AgendamientosModule } from './agendamientos/agendamientos.module';
       port: 5432,
       username: 'postgres',
       password: '1234',
-      database: 'task1',
+      database: 'Flota_autos',
       entities: ['dist/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: true,
       logging: true,
       logger: 'file',
     }),
+    AgendamientosModule,
     CarsModule,
-    UsuariosModule,
     ServiciosModule,
-    AgendamientosModule],
+    UsuariosModule ],
   controllers: [AppController],
   providers: [AppService],
 })

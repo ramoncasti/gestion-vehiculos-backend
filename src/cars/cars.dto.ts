@@ -1,48 +1,52 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsEnum, IsInt, IsOptional, IsString, Length} from "class-validator";
+import { IsEnum, IsInt, IsOptional, IsString} from "class-validator";
 import { Disponibilidad } from "src/enums/Disponibilidad";
 
 export class CarsDto {
+    @ApiProperty()
     @Type(()=> Date)
     @IsOptional()
     fechaCreacion: Date;
 
+    @ApiProperty()
     @Type(()=> Date)
     @IsOptional()
     fechaAlteracion: Date;
 
+    @ApiProperty()
     @IsString()
-    @IsOptional()
     chapa: string;
 
+    @ApiProperty()
     @IsString()
-    @IsOptional()
     chasis: string;
 
+    @ApiProperty()
     @IsString()
-    @IsOptional()
     fabricante: string;
 
+    @ApiProperty()
     @IsString()
-    @IsOptional()
     modelo: string;
 
+    @ApiProperty()
     @IsInt()
-    @IsOptional()
     kilometraje: number;
 
+    @ApiProperty()
     @IsInt()
-    @IsOptional()
     AnioModelo: number;
 
+    @ApiProperty()
     @IsInt()
-    @IsOptional()
     AnioFabricacion: number;
 
+    @ApiProperty()
     @IsString()
-    @IsOptional()
     descripcion: string;
     
+    @ApiProperty()
     @IsEnum(Disponibilidad, {message: 'Error en disponibilidad'})
     disponibilidad: Disponibilidad;
 
