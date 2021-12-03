@@ -2,7 +2,9 @@
 import { Agendamientos } from "src/agendamientos/agendamientos.entity";
 import { TipoUsuario } from "src/enums/TipoUsuario";
 import { Servicios } from "src/Servicios/servicios.entity";
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import * as bcrypt from "bcrypt";
+import { classToPlain, Exclude } from "class-transformer";
 
 @Entity()
 export class Usuarios{
@@ -21,8 +23,9 @@ export class Usuarios{
     @Column()
     login: string;
 
+    @Exclude({ toPlainOnly: true})
     @Column()
-    Contrasenia: string;
+    Contrasenia:string;
 
     @Column()
     tipoUsuario: TipoUsuario;
@@ -32,4 +35,23 @@ export class Usuarios{
 
     @OneToMany(() => Servicios, servicios => servicios.usuarios,{ cascade: true })
      servicios: Array<Servicios>;
+
+     toJSON() {
+        return classToPlain(this);
+      }
+
+     @BeforeInsert()
+     @BeforeUpdate()
+     async hashPassword(){
+         if(!this.Contrasenia){
+            this.Contrasenia = this.login;
+         }
+         const salt = await bcrypt.genSalt();
+         this.Contrasenia = await bcrypt.hash(this.Contrasenia,salt);
+     }
+     
+     async validarPassword(Contrasenia:string){
+        return await bcrypt.compareSync(Contrasenia,this.Contrasenia);
+     }
+
 }

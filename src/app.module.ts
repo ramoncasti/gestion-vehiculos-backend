@@ -7,6 +7,8 @@ import {UsuariosModule} from "./usuarios/usuarios.module";
 import {ServiciosModule} from "./Servicios/servicios.module";
 import { ConfigModule } from '@nestjs/config';
 import { AgendamientosModule } from './agendamientos/agendamientos.module';
+import { AuthModule } from './auth/auth.module';
+import { TiposervicioModule } from './tiposervicio/tiposervicio.module';
 
 @Module({
   imports: [
@@ -19,7 +21,7 @@ import { AgendamientosModule } from './agendamientos/agendamientos.module';
       port: 5432,
       username: 'postgres',
       password: '1234',
-      database: 'Flota_autos',
+      database: 'flota',
       entities: ['dist/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: true,
@@ -29,7 +31,9 @@ import { AgendamientosModule } from './agendamientos/agendamientos.module';
     AgendamientosModule,
     CarsModule,
     ServiciosModule,
-    UsuariosModule ],
+    UsuariosModule,
+    TiposervicioModule,
+    AuthModule ],
   controllers: [AppController],
   providers: [AppService],
 })

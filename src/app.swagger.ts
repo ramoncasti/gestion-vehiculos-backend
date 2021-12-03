@@ -8,6 +8,7 @@ export const initSwagger = (app: INestApplication) => {
     .setDescription(
       'Datapar',
     )
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('/docs', app, document);
