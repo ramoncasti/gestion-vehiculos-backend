@@ -7,7 +7,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('Bootstrap');
   const port = 3000;
+  const cors = require("cors")
   app.enableCors();
+  app.use(
+    cors({
+      origin: "*",
+    })
+  );
 
   initSwagger(app);
 
@@ -19,5 +25,9 @@ async function bootstrap() {
 
   await app.listen(port);
   logger.log(`Server is running at ${await app.getUrl()}`);
+
+  
+
+
 }
 bootstrap();
